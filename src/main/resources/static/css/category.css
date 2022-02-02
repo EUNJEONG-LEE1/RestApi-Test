@@ -1,0 +1,36 @@
+@charset "EUC-KR";
+body{font-size: 14px;}
+a{text-decoration: none;}
+
+#getCategoryList{padding: 0 30px 0 15px; border: 1px solid #e7e7e7; width:300px;}
+.depth1{margin-top:10px;}
+.depth1End{border-bottom: 1px solid #e7e7e7; height: 25px; line-height: 15px; margin-bottom: 5px;}
+.depth1End:last-child{border-bottom: none;}
+.depth1End a {font-size: 12px;padding-left: 35px; color: palevioletred; font-weight:800;}
+.depth1End a:hover{color:red;}
+.depth1TextDiv{margin:5px 0 15px 0; padding-left:10px;}
+.depth1Text{font-weight:600; cursor:pointer; color: black;font-size: 13px;}
+.depth2TextDiv{margin:5px 0; padding-left:30px;}
+.depth2Text>input{padding: 2px; font-size:13px; border: 1px solid darkgrey;}
+#btnAllList {border: 1px solid cornflowerblue; width: 100px; height: 25px; padding-top: 5px; text-align: center; border-radius: 3px; position:absolute;}
+#btnAllList a{color:cornflowerblue;}
+#btnAllList:hover{background-color: aliceblue;}
+#btnAdd1Depth:hover{background-color:antiquewhite;}
+
+#btnAdd1Depth{width:345px; border: 1px solid palevioletred; height: 25px; padding-top: 5px; text-align: center; margin-top:10px; border-radius: 3px; margin-bottom:10px;}
+#btnAdd1Depth a{color:palevioletred; }
+#selectedCodeTitle{margin : 10px 0; width: 300px; height: 25px; padding-top: 5px; position: relative; left:110px;}
+#selectedCode{border:none; color: red;}
+
+.btnBox{float:right; font-size:11px;}
+.btnBox>a{border:1px solid #e7e7e7; border-radius :3px; padding:3px; color:cornflowerblue; margin-left:2px;}
+.btnBox>a:hover{background-color: aliceblue;}
+.depth2Text>input{width: 150px;}
+
+.btn1Left {font-size: 13px; border-right: 1px solid #e7e7e7; margin-left: 20px; padding-right: 3px; color:palevioletred;}
+.btn1Right {font-size: 13px; padding-left: 2px; color:palevioletred;}
+
+#searchCategoryDiv{ position: relative; left: 130px; height: 40px;}
+#searchValue{height:25px; font-size:13px; padding-left:5px}
+#searchBtn{border: 1px solid gray; height: 30px; line-height: 30px; border-radius: 3px; display: inline-block; width: 40px; font-size: 13px; text-align: center; color:palevioletred;}
+#searchBtn:hover{background-color: aliceblue;}
