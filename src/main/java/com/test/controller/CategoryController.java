@@ -45,7 +45,7 @@ public class CategoryController {
 	List<Category> resultList = Stream.concat(
 			categoryRepository.findByNameContaining(searchVal).stream()
 			, categoryRepository.select1DepthNameChild(searchVal).stream()
-			).collect(Collectors.toList());
+			).distinct().collect(Collectors.toList());
 		
 		return resultList;
 	}
