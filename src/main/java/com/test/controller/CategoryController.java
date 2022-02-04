@@ -1,5 +1,6 @@
 package com.test.controller;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -45,7 +46,10 @@ public class CategoryController {
 	List<Category> resultList = Stream.concat(
 			categoryRepository.findByNameContaining(searchVal).stream()
 			, categoryRepository.select1DepthNameChild(searchVal).stream()
-			).distinct().collect(Collectors.toList());
+			).distinct()
+			.sorted(Comparator.comparing(Category::getCode))
+			.sorted(Comparator.comparing(Category::getSort))
+			.collect(Collectors.toList());
 		
 		return resultList;
 	}

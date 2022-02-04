@@ -17,7 +17,6 @@
 			//console.log(data);
 			if(data.length>0){
 				selectedCode = "";
-				//$("#selectedCode")[0].value= "";
 				makeCategoryHtml(data);
 			}else{
 				$("#getCategoryList")[0].innerHTML="";
@@ -37,7 +36,6 @@ function makeCategoryHtml(data){
 	
  	let dept1_1= "<div class='depth1 dept1_"; //대분류 코드
  	let depth1_2 = "'><div class='depth1TextDiv'><a class='depth1Text depth1Text_";//대분류 코드 	
- 	//let depth1_2_2 = "' href='javascript:selectCategory1Depth(&quot;";//대분류코드
  	let depth1_2_3 = "&quot,&quot;";//대분류명
  	let depth1_3 = "' href='javascript:void(0);'>"; //대분류명
  	let depth1_3_btn_1="<a class='btn1Left' href='javascript:editCategory1depth(&quot;"; //대분류 아이디
@@ -47,9 +45,6 @@ function makeCategoryHtml(data){
  	let depth1_3_btn_5 ="&quot;)'>삭제</a>";
  	let depth1_4 = "</div></div><div class='depth1End'><a href='javascript:addCategory(&quot;";//대분류코드
  	let depth1_5 = "&quot,2);'>+</a></div>";	
-
- 	let dept2_start= "<div class='depth2 dept2_"; //중분류 코드
- 	let depth2_end = "'></div>";	
 
 	let dept2_1="<div class='depth2TextDiv'><span class='depth2Text depth2Text_";//중분류 코드
  	let dept2_2 = "'><input type='text' id='textCateId_";//아이디
@@ -76,22 +71,7 @@ function makeCategoryHtml(data){
 			$("#getCategoryList")[0].innerHTML += depth1Html;
 		
 		}else if(data[i].depth==2){
-			
-			if ($(".dept2_"+code).length==0){
-				let dept2HtmlDiv = dept2_start+code+depth2_end;	
-				
-				if((searchValue!="")&&($(".dept1_"+pcode).length==0)){
-					//검색결과 depth2 
-					$("#getCategoryList")[0].innerHTML +=dept2HtmlDiv;	
-					
-				}else{
-					
-					$(".dept1_"+pcode)[0].innerHTML +=dept2HtmlDiv;
 
-				}
-				
-			}
-			
 			let depth2Html =  dept2_1+code+dept2_2+id+dept2_2_2+name+dept2_3+id+dept2_4+id+dept2_5;
 				
 			if((searchValue!="")&&($(".dept1_"+pcode).length==0)){
@@ -109,9 +89,6 @@ function makeCategoryHtml(data){
 	}
 }
 
-function selectCategory1Depth(code,name){
-	selectListCategory(code,name)
-}
 
 //카테고리 검색
 function searchCategory(){
@@ -124,25 +101,22 @@ function searchCategory(){
 	} else {
 		
 		$.ajax({
-		type:"GET",
-		url:"/category/search/"+searchVal,
-		contentType: "application/json; charset=UTF-8",
-		success: function(data) {
-			console.log(data);
-			if(data.length>0){
-				//selectedCode = cateCode;
-				//selectedCodeName = name;
-				//$("#selectedCode")[0].value= "선택된 카테고리 : " +name;
-				makeCategoryHtml(data);	
-				searchValue = searchVal;
-			}else{
-				$("#getCategoryList")[0].innerHTML="검색된 카테고리가 없습니다";
+			type:"GET",
+			url:"/category/search/"+searchVal,
+			contentType: "application/json; charset=UTF-8",
+			success: function(data) {
+				console.log(data);
+				if(data.length>0){
+					makeCategoryHtml(data);	
+					searchValue = searchVal;
+				}else{
+					$("#getCategoryList")[0].innerHTML="검색된 카테고리가 없습니다";
+				}
+			},
+			error: function(xhr) {
+				console.log("error : " + xhr );
 			}
-		},
-		error: function(xhr) {
-			console.log("error : " + xhr );
-		}
-	});
+		});
 	}
 	
 }
@@ -181,12 +155,7 @@ function editCategory1depth(id, code){
 				data : editName,
 				contentType: "application/json; charset=UTF-8",
 				success: function(data) {
-					//console.log(data);	
-//					if(selectedCode!=""){
-//						selectListCategory(selectedCode, selectedCodeName);
-//					}else{
-						getListCategory();
-//					}				
+					getListCategory();				
 					swal("수정 완료!", " ", "success");
 				},
 				error: function(xhr) {
@@ -222,12 +191,8 @@ function editCategory2depth(id){
 			data : editName,
 			contentType: "application/json; charset=UTF-8",
 			success: function(data) {
-				console.log(data);
-//				if(selectedCode!=""){
-//					selectListCategory(selectedCode, selectedCodeName);
-//				}else{
-					getListCategory();
-//				}				
+				//console.log(data);
+				getListCategory();
 				swal("수정 완료!", " ", "success");
 			},
 			error: function(xhr) {
@@ -305,14 +270,8 @@ function deleteCategory2depth(id){
 			contentType: "application/json; charset=UTF-8",
 			success: function(data) {
 				console.log(data);
-					
-//				if(selectedCode!=""){
-//					selectListCategory(selectedCode, selectedCodeName);
-//				}else{
-					getListCategory();
-//				}					
+				getListCategory();					
 				swal("삭제 완료!", " ", "success");
-
 			},
 			error: function(xhr) {
 				console.log("error : " + xhr );
@@ -407,7 +366,7 @@ function selectMaxSortDepth2(pcode, name){
 function insertCategory1Depth(name, sort){
 	$.ajax({
 		type:"PUT",
-		url:"/category/add",
+		url:"/category/add",	
 		data: JSON.stringify({
 				"code" : "cate"+sort,
 				"name" : name,
@@ -447,11 +406,7 @@ function insertCategory2Depth(pcode, name, sort){
 		contentType: "application/json; charset=UTF-8",
 		success: function(data) {
 			console.log("추가된 2dpeth 카테고리 id : "+data);
-			if(selectedCode!=""){
-				selectListCategory(selectedCode, selectedCodeName);
-			}else{
-				getListCategory();
-			}
+			getListCategory();
 			swal("추가 완료!", " ", "success");
 		},
 		error: function(xhr) {
